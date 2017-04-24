@@ -1,2 +1,6 @@
-# yastack
-Mirror of first draft at work
+# PragmaStack
+A pragmatic stack
+
+to help orchestrate
+
+existing environments!
