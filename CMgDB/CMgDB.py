@@ -161,7 +161,11 @@ class CMgDB(object):
                 self.log.setLevel(logging.INFO)
 
             self.url = os.environ.get('GRAPHENEDB_URL', 'http://' + neodevice['host'] + ':' + str(neodevice['port']))
-            self.graph = Graph(self.url + '/db/data/', username=neodevice['username'], password=neodevice['password'], bolt_port=neodevice['bolt'])
+            if neodevice['bolt']:
+                self.graph = Graph(self.url + '/db/data/', username=neodevice['username'], password=neodevice['password'], bolt_port=neodevice['bolt'])
+            else:
+                self.graph = Graph(self.url + '/db/data/', username=neodevice['username'],
+                                   password=neodevice['password'], bolt=false)
         else:
             return False
 
