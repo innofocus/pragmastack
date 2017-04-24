@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+    <style>
+        #visu {
+            width: 210px;
+            height: 290px;
+            border: 1px solid #444444;
+        }
+</style>
+{% block content %}
+
+<div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">{{header}}</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Search for {{ node_label }}={{ node_name }} -- {{ next_label }}
+                        </div>
+
+                        <!-- /.panel-heading -->
+                        <div class="panel-body" >
+                            {% include "pages/find_block.html" %}
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
+            <div class="row ">
+                <!-- /.panel -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             <h4>Result : {{ list|length }} entries </h4> for: {{ node_label }}={{ node_name }} -- {{ next_label }}
+                        </div>
+                        <div class="panel-body" >
+                            {% include "pages/result_block.html" %}
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <div class="col-lg-8 col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Visual (limited to 50 nodes) {{source}}
+                        </div>
+
+                        <!-- /.panel-heading -->
+                        <div class="panel-body" >
+                            {% include "pages/visu_block.html" %}
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+
+                </div>
+</div>
+{% endblock %}
+
+    {% block pagescript %}
+    <script>
+          $( function() {
+    $( "#findtags" ).autocomplete({
+      source: '{{ url_for('autocomplete') }}'
+    } );
+  } );
+
+    </script>
+    {% include "pages/visuscript.html" %}
+    {% endblock %}

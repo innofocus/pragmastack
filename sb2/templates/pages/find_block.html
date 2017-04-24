@@ -1,0 +1,18 @@
+<h3>CMgDB Find - {% if mode == "Circular"%} Strict mode {% else %} Explore mode {% endif %}</h3>
+<div>
+    {% for i in labellist %}
+    <a href="{{ url_for('find')+"?"+i }}">{{i}}</a>
+    {% endfor %}
+    <div class="ui-widget">
+        <form action="{{ url_for('find')}}" method="get">
+            <input id="findtags" name="query" size="60">
+            <button type="submit" class="btn btn-default"> Find</button>
+            <br>
+        </form>
+        <form action="{{ url_for('find')}}" method="post">
+            <input type="hidden" name="query" value="{{query}}">
+            Mode <input type="radio" name="mode" onclick="this.form.submit();" value="Circular" {% if session['mode'] == "Circular" %} checked {% endif %}>Strict
+            <input type="radio" name="mode" onclick="this.form.submit();" value="Linear"   {% if session['mode'] == "Linear" %} checked {% endif %}>Explore
+        </form>
+    </div>
+</div>

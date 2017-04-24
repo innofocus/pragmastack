@@ -1,0 +1,43 @@
+---
+
+database:
+   host: ctp-prd-rda.canaltp.prod
+   port: 7474
+   username: <user>
+   password: <pass> 
+
+devices:
+   - name: n5k1
+     type: n5k
+     host: pa4-n5k1-prd.canaltp.prod
+     port: 22
+     username: <username>
+     password: <password>
+
+   - name: vcenter
+     type: vmware
+     host: ctp-prd-vcenter2.canaltp.prod
+     port: 443
+     username: <username>@canaltp0
+     password: <password>
+
+   - name: paloalto1
+     type: palo
+     host: pa4-fw1-prd.canaltp.prod
+     port: 443
+     username: <username>
+     password: <password>
+
+   - name: lc2
+     type: f5_lc
+     host: pa4-lc2-prd.canaltp.prod
+     port: 443
+     username: <username>
+     password: <password>
+
+   - name: adc2
+     type: f5_adc
+     host: pa4-adc2-prd.canaltp.prod
+     port: 443
+     username: <username>
+     password: <password>

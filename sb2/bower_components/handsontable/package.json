@@ -1,0 +1,157 @@
+{
+  "_args": [
+    [
+      "handsontable",
+      "/home/nicolas/github/Billcloud/Bill Cloud/sb2"
+    ]
+  ],
+  "_from": "handsontable@latest",
+  "_id": "handsontable@0.31.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/handsontable",
+  "_nodeVersion": "6.8.1",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/handsontable-0.31.1.tgz_1488890494932_0.19469453836791217"
+  },
+  "_npmUser": {
+    "email": "krzysztof.spilka@handsontable.com",
+    "name": "handsoncode"
+  },
+  "_npmVersion": "3.10.8",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "handsontable",
+    "raw": "handsontable",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/handsontable/-/handsontable-0.31.1.tgz",
+  "_shasum": "79fd1258cbd06a3d8f3126231e25abb7b3484932",
+  "_shrinkwrap": null,
+  "_spec": "handsontable",
+  "_where": "/home/nicolas/github/Billcloud/Bill Cloud/sb2",
+  "author": {
+    "email": "hello@handsontable.com",
+    "name": "Handsoncode"
+  },
+  "bugs": {
+    "url": "https://github.com/handsontable/handsontable/issues"
+  },
+  "builderDependencies": {
+    "moment": {
+      "copyable": [
+        "LICENSE",
+        "locale",
+        "moment.js"
+      ],
+      "global": "moment",
+      "include": [
+        "moment.js"
+      ]
+    },
+    "numbro": {
+      "copyable": [
+        "LICENSE",
+        "LICENSE-Numeraljs",
+        "dist/languages",
+        "dist/languages.js",
+        "dist/numbro.js"
+      ],
+      "global": "numbro",
+      "ignore": [
+        "dist/languages.js"
+      ],
+      "include": [
+        "dist/numbro.js"
+      ]
+    },
+    "pikaday": {
+      "copyable": [
+        "LICENSE",
+        "css/pikaday.css",
+        "pikaday.js"
+      ],
+      "global": "Pikaday",
+      "include": [
+        "css/pikaday.css",
+        "pikaday.js"
+      ]
+    },
+    "zeroclipboard": {
+      "copyable": [
+        "LICENSE",
+        "dist/ZeroClipboard.js",
+        "dist/ZeroClipboard.swf"
+      ],
+      "global": "ZeroClipboard",
+      "include": [
+        "dist/ZeroClipboard.js"
+      ]
+    }
+  },
+  "dependencies": {
+    "moment": "^2.13.0",
+    "numbro": "^1.8.0",
+    "pikaday": "^1.4.0",
+    "zeroclipboard": "^2.2.0"
+  },
+  "description": "Spreadsheet-like data grid editor that provides copy/paste functionality compatible with Excel/Google Docs",
+  "devDependencies": {
+    "grunt": ">=0.4.0",
+    "grunt-contrib-jasmine": "^1.0.3",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-jscs": "^3.0.1",
+    "hot-builder": "^0.5.2"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "79fd1258cbd06a3d8f3126231e25abb7b3484932",
+    "tarball": "https://registry.npmjs.org/handsontable/-/handsontable-0.31.1.tgz"
+  },
+  "gitHead": "0f55f3b77cf67affee5ede619311a3544f39943f",
+  "homepage": "http://handsontable.com/",
+  "keywords": [
+    "data",
+    "data-grid",
+    "data-spreadsheet",
+    "data-table",
+    "edit-cell",
+    "editable-table",
+    "editor",
+    "excel",
+    "grid",
+    "grid-editor",
+    "spreadsheet",
+    "table",
+    "tabular-data"
+  ],
+  "license": "MIT",
+  "main": "./dist/handsontable.js",
+  "maintainers": [
+    {
+      "name": "handsoncode",
+      "email": "krzysztof.spilka@handsontable.com"
+    }
+  ],
+  "name": "handsontable",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/handsontable/handsontable.git"
+  },
+  "scripts": {
+    "build": "grunt build",
+    "build:custom": "grunt build-custom",
+    "build:dev": "grunt build-dev",
+    "test": "grunt test"
+  },
+  "version": "0.31.1"
+}

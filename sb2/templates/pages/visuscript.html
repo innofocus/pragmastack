@@ -1,0 +1,119 @@
+<script>
+    // create a network
+    var network;
+    var container = document.getElementById('visu');
+    var options = {
+        nodes: {
+            shape: 'dot',
+            shadow:true,
+            enabled: true,
+            sortMethod: 'hubsize',
+            navigationButtons: true,
+            size: 20,
+            font: {
+                size: 15,
+                color: '#222222'
+            },
+            borderWidth: 2
+        },
+        edges: {
+            width: 2,
+            shadow:true
+        },
+        groups: {
+            Server: {
+                color: {background:'red',border:'black'},
+                shape: 'box'
+            },
+            dotsWithLabel: {
+                label: "I'm a dot!",
+                shape: 'dot',
+                color: 'cyan'
+            },
+            Disk: { size:10, shape: 'triangle' },
+            mints: {color:'rgb(0,255,140)'},
+            Ipport: {
+                shape: 'icon',
+                icon: {
+                    face: 'FontAwesome',
+                    code: '\uf1b2',
+                    size: 50,
+                    color: 'blue'
+                }
+            },
+            source: {
+                color:{border:'white'}
+            }
+        }
+    };
+
+
+    $.ajax({
+    url: '/api/graph',
+    type: 'POST',
+    data: JSON.stringify({'query' : "{{ visuquery|safe }}"}),
+    contentType: "application/json; charset=utf-8",
+    accept: "application/json",
+    success: function (data) {
+        var nodes = new vis.DataSet(data.data.nodes);
+        var edges = new vis.DataSet(data.data.edges);
+        var graph = { nodes: nodes, edges: edges};
+
+        function getEdgesOfNode(nodeId) {
+          console.log(nodeId);
+          return edges.get().filter(function (edge) {
+          console.log(edge);
+            return edge.from === nodeId || edge.to === nodeId;
+          });
+        }
+        network = new vis.Network(container, graph, options);
+        network.on("click", function (prop) {
+            var linknode = nodes.get(prop['nodes'])[0];
+            if ("x{{node_label}}" == "x") { querynode = linknode.name;} else { querynode = linknode.label; }
+            document.getElementById('info').innerHTML = '<a href={{ url_for('find')}}?{{query|safe}}'+querynode+
+                                                        '><h3>'+ linknode.label + '</h3></a>' +
+                                                        linknode.title;
+        });
+
+        network.on("doubleClick", function (props) {
+            var linknode = nodes.get(props['nodes'])[0];
+            if ("x{{node_label}}" == "x") { querynode = linknode.name;} else { querynode = linknode.label; }
+            document.location.href = "{{ url_for('find')}}?{{query|safe}}"+querynode;
+        });
+
+        network.on("contextmenu", function (props) {
+          alert('Right click!');
+          props.event.preventDefault();
+        });
+
+        network.on("oncontext", function(params) {
+            nodes.remove( { id : params['nodes']});
+        });
+
+        network.on("dragEnd", function (params) {
+          for (var i = 0; i < params.nodes.length; i++) {
+              var nodeId = params.nodes[i];
+              nodes.update({id: nodeId, fixed: {x: true, y: true}});
+          }
+        });
+
+
+        network.on('dragStart', function(props) {
+            var linknode = nodes.get(props['nodes'])[0];
+            if ("x{{node_label}}" == "x") { querynode = linknode.name;} else { querynode = linknode.label; }
+            document.getElementById('info').innerHTML = '<a href={{ url_for('find')}}?{{query|safe}}'+querynode+
+                                                        '><h3>'+ linknode.label + '</h3></a>' +
+                                                        linknode.title;
+          for (var i = 0; i < props.nodes.length; i++) {
+              var nodeId = props.nodes[i];
+              nodes.update({id: nodeId, fixed: {x: false, y: false}});
+          }
+        });
+                },
+     dataType: 'json'
+     }
+     );
+
+
+
+</script>

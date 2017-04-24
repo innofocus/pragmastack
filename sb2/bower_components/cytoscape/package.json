@@ -1,0 +1,174 @@
+{
+  "_args": [
+    [
+      "cytoscape",
+      "/home/nicolas/github/Billcloud/Bill Cloud/sb2"
+    ]
+  ],
+  "_from": "cytoscape@latest",
+  "_id": "cytoscape@2.7.16",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/cytoscape",
+  "_nodeVersion": "6.7.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/cytoscape-2.7.16.tgz_1489088848705_0.05659773573279381"
+  },
+  "_npmUser": {
+    "email": "maxkfranz@gmail.com",
+    "name": "maxkfranz"
+  },
+  "_npmVersion": "3.10.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "cytoscape",
+    "raw": "cytoscape",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/cytoscape/-/cytoscape-2.7.16.tgz",
+  "_shasum": "d0e03a10badedf165574f15e7e9e64f265329c0d",
+  "_shrinkwrap": null,
+  "_spec": "cytoscape",
+  "_where": "/home/nicolas/github/Billcloud/Bill Cloud/sb2",
+  "author": {
+    "email": "maxkfranz@gmail.com",
+    "name": "Max Franz",
+    "url": "http://maxfranz.com"
+  },
+  "browser": {
+    "child_process": false
+  },
+  "bugs": {
+    "url": "https://github.com/cytoscape/cytoscape.js/issues"
+  },
+  "contributors": [
+    {
+      "name": "Christian Lopes",
+      "email": "chrtannus@gmail.com"
+    },
+    {
+      "name": "Yue Dong",
+      "email": "oryato@gmail.com"
+    },
+    {
+      "name": "Onur Sumer",
+      "email": "s.onur.sumer@gmail.com"
+    },
+    {
+      "name": "Gerardo Huck",
+      "email": "gerardohuck@gmail.com"
+    }
+  ],
+  "dependencies": {},
+  "description": "Graph theory (a.k.a. network) library for analysis and visualisation",
+  "devDependencies": {
+    "benchmark": "^1.0.0",
+    "bluebird": "^2.0.2",
+    "browserify": "^13.0.0",
+    "chai": "^1.9.0",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-benchmark": "^1.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssmin": "^0.1.4",
+    "gulp-derequire": "^2.1.0",
+    "gulp-download": "0.0.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-htmlmin": "^1.3.0",
+    "gulp-inject": "^4.0.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-prompt": "^0.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-shell": "^0.5.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-unzip": "^0.1.3",
+    "gulp-util": "^3.0.7",
+    "gulp-zip": "^3.2.0",
+    "handlebars": "^4.0.5",
+    "highlight.js": "^9.3.0",
+    "jscs": "^2.11.0",
+    "jsonlint": "^1.6.2",
+    "marked": "^0.3.5",
+    "mocha": "^2.3.2",
+    "node-notifier": "^4.5.0",
+    "run-sequence": "^1.1.5",
+    "sniper": "^0.2.17",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-paths": "^2.1.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "d0e03a10badedf165574f15e7e9e64f265329c0d",
+    "tarball": "https://registry.npmjs.org/cytoscape/-/cytoscape-2.7.16.tgz"
+  },
+  "engines": {
+    "node": ">=0.6"
+  },
+  "gitHead": "d648ac3da92ea220e4e6b3b25ea90aaa510ede73",
+  "homepage": "http://js.cytoscape.org",
+  "keywords": [
+    "amd",
+    "analysis",
+    "biojs",
+    "bower",
+    "commonjs",
+    "edge",
+    "graph",
+    "graph-theory",
+    "jquery",
+    "link",
+    "network",
+    "node",
+    "node",
+    "nodejs",
+    "npm",
+    "requirejs",
+    "vertex",
+    "visualisation",
+    "visualization"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "maintainers": [
+    {
+      "name": "cytoscape",
+      "email": "cytoscapenpm@gmail.com"
+    },
+    {
+      "name": "maxkfranz",
+      "email": "maxkfranz@gmail.com"
+    }
+  ],
+  "name": "cytoscape",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cytoscape/cytoscape.js.git"
+  },
+  "scripts": {
+    "sniper": "sniper .",
+    "test": "gulp test && gulp test-browserify"
+  },
+  "sniper": {
+    "first": "images",
+    "js": [
+      "/build/cytoscape.js",
+      "http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
+    ]
+  },
+  "version": "2.7.16"
+}

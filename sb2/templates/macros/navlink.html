@@ -1,0 +1,28 @@
+{% macro nav_link(name, url, active) %}
+<li>
+    {% if name == active %}
+        <a class="active" href="{{ url }}">{{ name }}</a>
+    {% else %}
+        <a href="{{ url }}">{{ name }}</a>
+    {% endif %}
+</li>
+{% endmacro %}
+
+{% macro tablelines(id) %}
+                                    <thead>
+                                        <tr>
+                                            {% for i in tablelist[id]['header'] %}
+                                            <th>{{i|safe}}</th>
+                                            {% endfor %}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in tablelist[id]['lines'] %}
+                                        <tr class="gradeA">
+                                            {% for j in i %}
+                                            <td>{{j|safe}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+{% endmacro %}

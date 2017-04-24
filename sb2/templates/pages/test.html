@@ -1,0 +1,162 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">{{header}}</h1>
+                <div id="test" class="fa"></div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <pre id="info"></pre>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="example1"></div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+
+{% endblock %}
+
+{% block pagescript %}
+<script>
+ var
+    container = document.getElementById('example1'),
+    hot;
+
+  hot = new Handsontable(container, {
+    data: ['x','y','z'],
+    colHeaders: ['Car', 'Year', 'Chassis color', 'Bumper color'],
+    columns: [
+      {},
+      {type: 'numeric'},
+      {
+        type: 'dropdown',
+        source: ['yellow', 'red', 'orange', 'green', 'blue', 'gray', 'black', 'white']
+      },
+      {
+        type: 'dropdown',
+        source: ['yellow', 'red', 'orange', 'green', 'blue', 'gray', 'black', 'white']
+      }
+    ]
+  });
+
+
+    // create a network
+    var network;
+    var container = document.getElementById('test');
+    var options = {
+        nodes: {
+            shape: 'dot',
+            shadow:true,
+            enabled: true,
+            sortMethod: 'hubsize',
+            navigationButtons: true,
+            size: 20,
+            font: {
+                size: 15,
+                color: '#222222'
+            },
+            borderWidth: 2
+        },
+        edges: {
+            width: 2,
+            shadow:true
+        },
+        groups: {
+            Server: {
+                color: {background:'red',border:'black'},
+                shape: 'box'
+            },
+            dotsWithLabel: {
+                label: "I'm a dot!",
+                shape: 'dot',
+                color: 'cyan'
+            },
+            Disk: { size:10, shape: 'database' },
+            mints: {color:'rgb(0,255,140)'},
+            Ipport: {
+                shape: 'icon',
+                icon: {
+                    face: 'FontAwesome',
+                    code: '\uf1b2',
+                    size: 50,
+                    color: 'blue'
+                }
+            },
+            source: {
+                color:{border:'white'}
+            }
+        }
+    };
+
+
+    $.ajax({
+    url: '/api/graph',
+    type: 'POST',
+    data: JSON.stringify({'query' : "match (x0:Adc_pool { name:'/Common/FR-PAYShis  DELALOIRE-PRIV-PRE-ENG'})--(x1) where (x0)--(x1) and  not labels(x1) in ['Model', 'Group'] unwind labels(x1) as x return distinct x order by x"}),
+    contentType: "application/json; charset=utf-8",
+    accept: "application/json",
+    success: function (data) {
+        var nodes = new vis.DataSet(data.data.nodes);
+        var edges = new vis.DataSet(data.data.edges);
+        var graph = { nodes: nodes, edges: edges};
+
+        function getEdgesOfNode(nodeId) {
+          console.log(nodeId);
+          return edges.get().filter(function (edge) {
+          console.log(edge);
+            return edge.from === nodeId || edge.to === nodeId;
+          });
+        }
+        network = new vis.Network(container, graph, options);
+        network.on("click", function (prop) {
+            document.getElementById('info').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(nodes.get(prop['nodes']), null, 4);
+        });
+
+        network.on("contextmenu", function (props) {
+          alert('Right click!');
+          props.event.preventDefault();
+        });
+
+        network.on("oncontext", function(params) {
+            nodes.remove( { id : params['nodes']});
+        });
+
+        network.on("dragEnd", function (params) {
+          for (var i = 0; i < params.nodes.length; i++) {
+              var nodeId = params.nodes[i];
+              nodes.update({id: nodeId, fixed: {x: true, y: true}});
+          }
+        });
+
+
+        network.on('dragStart', function(params) {
+          for (var i = 0; i < params.nodes.length; i++) {
+              var nodeId = params.nodes[i];
+              nodes.update({id: nodeId, fixed: {x: false, y: false}});
+          }
+        });
+                },
+     dataType: 'json'
+     }
+     );
+
+
+
+</script>
+{% endblock %}

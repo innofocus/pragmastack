@@ -1,0 +1,22 @@
+
+    <div>
+        <a href="{{ url_for('find')}}?{{node_label}}={{node_name}}">
+            <b>{{ node_label }}={{ node_name }} -- {{ next_label }}</b>
+        </a>
+        <small>
+            {% for i in infos %}
+            <dt style="text-indent:10em;">{{i}}</dt>
+            <dt>{{infos[i]}}</dt>
+            {% endfor %}
+            <dt style="text-indent:10em;">
+                {% if node_name != "" %}
+                <a href="{{ url_for('show')}}?{{node_label}}={{node_name}}">(get json)</a>
+                {% endif %}
+            </dt>
+            </smal>
+            {% for i in list %}
+            <dl>
+                <dd><a href="{{ url_for('find')+"?"+query+i }}">{{i}}</a></dd>
+            </dl>
+            {% endfor %}
+    </div>
