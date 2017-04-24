@@ -165,7 +165,7 @@ class CMgDB(object):
                 self.graph = Graph(self.url + '/db/data/', username=neodevice['username'], password=neodevice['password'], bolt_port=neodevice['bolt'])
             else:
                 self.graph = Graph(self.url + '/db/data/', username=neodevice['username'],
-                                   password=neodevice['password'], bolt=false)
+                                   password=neodevice['password'], bolt=False)
         else:
             return False
 
