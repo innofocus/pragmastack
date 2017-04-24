@@ -28,9 +28,3 @@ file='datas/updates/update-20170126.csv'
 
 # on valorise les data fonctionnelles
 ./liveupdate.py --config live.yaml --link Server --to Client --by Platform
-
-# Attention, on supprime la cible avant
-#ls datas/billcloud.xlsx  && rm datas/billcloud.xlsx
-./bill-cloud.py --config live.yaml --backup datas/resources/backup-201612.csv --nasvolumes datas/resources/nasvolumes-201610.csv --percentiles datas/resources/percentiles-201612.csv --xlsfile datas/billcloud.xlsx
-#ls datas/billcloud.xlsx  && rm datas/Extract-CMDB.xlsx
-./Extract-CMDB.py --config live.yaml --neoport $neoport
