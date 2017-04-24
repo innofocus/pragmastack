@@ -2,7 +2,12 @@
 
 from pprint import pprint
 import re
-from urllib.request import urlopen
+
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlopen
+
 from netaddr import *
 import xmltodict
 from xml.etree import ElementTree
