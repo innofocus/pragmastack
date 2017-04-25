@@ -10,13 +10,13 @@ try:
 except ImportError:
     import json
 from flask_restful import reqparse, abort, Api, Resource
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
 import logging
 
 from flask import Flask, url_for
 from flask_ldap3_login import LDAP3LoginManager
-from flask_login import LoginManager, login_user, UserMixin, current_user
+
 from flask import render_template_string, redirect
 from flask_ldap3_login.forms import LDAPLoginForm
 
@@ -28,6 +28,9 @@ from netaddr import *
 
 
 login_manager = LoginManager(app)  # Setup a Flask-Login Manager
+if 'demo' in app.config and app.config['demo']:
+    login_manager.login_view = "login"
+
 ldap_manager = LDAP3LoginManager(app)  # Setup a LDAP3 Login Manager.
 
 users = {}
@@ -57,11 +60,17 @@ class User(UserMixin):
         self.data = data
 
     def __repr__(self):
-        return self.id
+        return "%s/%s" % (self.username, self.mail)
 
     def get_id(self):
         return self.id
 
+if 'demo' in app.config and app.config['demo']:
+    user = User('John Doe', 'John Doe',
+                {'name': 'John Doe', 'mail': 'JDoe@company.com', 'department': 'IT', 'company': 'company',
+                 'description': ''})
+else:
+    user = None
 
 # suite
 # Declare a User Loader for Flask-Login.
@@ -83,6 +92,13 @@ def _save_user(dn, username, data, memberships):
     user = User(dn, username, data)
     users[username] = user
     return user
+
+@app.route('/testlogin')
+#@login_required
+def home():
+    print('authent : ' + str(current_user.is_authenticated))
+    print('user.get_id()' + user.get_id())
+    return Response('Current_user : '+str(current_user)+' .')
 
 # Declare some routes for usage to show the authentication process.
 @app.route('/dashboard')
@@ -106,6 +122,12 @@ def manual_login():
 @app.route('/login.html')
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'demo' in app.config and app.config['demo']:
+        app.logger.debug(' Demo mode authentication')
+        session['username'] = user.get_id()
+        users[user.get_id()] = user
+        login_user(user)
+        return redirect('/')
     # Instantiate a LDAPLoginForm which has a validator to check if the user
     # exists in LDAP.
     form = LDAPLoginForm()
@@ -113,7 +135,7 @@ def login():
     if form.validate_on_submit():
         # Successfully logged in, We can now access the saved user object
         # via form.user.
-        login_user(form.user)  # Tell flask-login to log them in.
+        #login_user(form.user)  # Tell flask-login to log them in.
         session['username'] = form.user.username
         session['infos'] = form.user.mail + " - " + form.user.department
 
@@ -597,6 +619,7 @@ def template_variables():
 @app.route('/')
 @app.route('/index.html')
 def index():
+    print('authent : ' + str(current_user.is_authenticated))
     if not current_user.is_authenticated and not 'application/json' in request.headers['Accept']:
         return redirect(url_for('login'))
     if 'username' not in session and ('application/json' not in request.headers['Accept']):
