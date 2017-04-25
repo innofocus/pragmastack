@@ -16,13 +16,22 @@ import re
 import requests
 from requests.auth import HTTPBasicAuth
 from netaddr import *
-
+import logging
 
 # config file
 app.config['config_file'] = 'live.yaml'
 lu = liveupdate(app.config['config_file'])
 for i in lu.config['app'].keys():
     app.config[i]=lu.config['app'][i]
+
+
+app.debug = app.config['debug']
+
+if app.config['debug']:
+    app.logger.setLevel(logging.DEBUG)
+
+if app.config['debug']:
+    app.logger.debug(' Models in Debug Mode !')
 
 # sheets models
 reports={ 'server' :
@@ -117,8 +126,7 @@ reports={ 'server' :
                 'pattern': None
               },
           'network':
-              {'cypher': '''
-                            with ['Network','Gateway','Vlan','Domain','Nic'] as exclude
+              {'cypher': '''with ['Network','Gateway','Vlan','Domain','Nic'] as exclude
                             match (mi:Model {name:'Ip'})--(m:Model) where not m.name in exclude with collect (distinct m.name) as list
                             match (n:Network)--(i:Ip) where n.name = {networkname}
                             optional match (i:Ip)--(s) where labels(s) in list
@@ -212,7 +220,7 @@ def existence (label,ci):
 
 class Server(Resource):
     def get(self, server_id):
-        app.logger.debug (server_id)
+        app.logger.debug(server_id)
         query = "match (Server:Server) where Server.name =~ '{}' return ".format(server_id)
         if request.method == 'GET':
             app.logger.debug (str(request.form))
@@ -293,6 +301,7 @@ class Post(Resource):
             abort (400, message="Posted datas error")
 
 def getlist(datatype,selector=None):
+    app.logger.debug(' getlist : datatype / selector '+datatype+'/'+str(selector))
     cypher = reports[datatype]['cypher']
     query = reports[datatype]['query']
     editor = reports[datatype]['editor'] or []
@@ -361,15 +370,20 @@ def getlist(datatype,selector=None):
 
 class JsonData(Resource):
     def post(self, datatype):
+        app.logger.debug(' JsonData : datatype '+datatype)
         selector = None
-        app.logger.debug (' request .json : ' + str(request.json))
+        if hasattr(request, 'json'):
+            app.logger.debug (' request.json : ' + str(request.json))
+        else:
+            app.logger.debug(' No JSON Data')
+
         if not datatype in reports:
             return json.jsonify(' bad datatype')
         if 'selector' in reports[datatype]:
             app.logger.debug(' selector in reports ')
-            if 'selector' in request.json:
+            if hasattr(request, 'json') and 'selector' in request.json:
                 selector = str(request.json['selector'])
-                app.logger.debug(' selector detected : selector : '+selector)
+                app.logger.debug(' selector detected : selector : '+str(selector))
         return json.jsonify(getlist(datatype, selector))
 
 

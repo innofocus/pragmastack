@@ -12,8 +12,6 @@ except ImportError:
 from flask_restful import reqparse, abort, Api, Resource
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
-import logging
-
 from flask import Flask, url_for
 from flask_ldap3_login import LDAP3LoginManager
 
@@ -25,6 +23,8 @@ import urllib
 from netaddr import *
 
 
+if app.config['debug']:
+    app.logger.debug(' Views Debug Mode !')
 
 
 login_manager = LoginManager(app)  # Setup a Flask-Login Manager
@@ -36,12 +36,6 @@ ldap_manager = LDAP3LoginManager(app)  # Setup a LDAP3 Login Manager.
 users = {}
 
 api = Api(app)
-
-ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-ch.setFormatter(formatter)
-app.logger.addHandler(ch)
 
 
 # global variables for templates
