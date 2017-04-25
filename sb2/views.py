@@ -87,13 +87,6 @@ def _save_user(dn, username, data, memberships):
     users[username] = user
     return user
 
-@app.route('/testlogin')
-#@login_required
-def home():
-    print('authent : ' + str(current_user.is_authenticated))
-    print('user.get_id()' + user.get_id())
-    return Response('Current_user : '+str(current_user)+' .')
-
 # Declare some routes for usage to show the authentication process.
 @app.route('/dashboard')
 def dashboard():
@@ -161,11 +154,6 @@ def autocomplete():
 class SearchForm(Form):
     autocomplete = TextField('autocomplete', id='autocomplete')
 
-
-# @app.route("/test")
-# def testpage():
-#     return render_template("sheet.html")
-#
 
 @app.route("/logout")
 def logout():
